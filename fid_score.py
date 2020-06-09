@@ -268,4 +268,4 @@ if __name__ == '__main__':
     print('FID: ', fid_value)
 
     with open("test.txt", 'a+') as fp:
-        fp.write(args.path[0] + '\t' + args.path[1] + "--dims" + args.dims + "\tFID: " + str(fid_value) + '\n')
+        fp.write(args.path[0] + '\t' + args.path[1] + "--dims" + str(args.dims) + "\tFID: " + str(fid_value) + '\n')
