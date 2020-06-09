@@ -64,7 +64,7 @@ def imread(filename):
     """
     Loads an image file into a (height, width, 3) uint8 ndarray.
     """
-    return np.asarray(Image.open(filename), dtype=np.uint8)[..., :3]
+    return np.asarray(Image.open(filename).resize((64, 64)), dtype=np.uint8)[..., :3]
 
 
 def get_activations(files, model, batch_size=50, dims=2048,
@@ -256,3 +256,6 @@ if __name__ == '__main__':
                                           args.gpu != '',
                                           args.dims)
     print('FID: ', fid_value)
+
+    with open("test.txt", 'a+') as fp:
+        fp.write(args.path[0] + '\t' + args.path[1] + "\tFID: " + str(fid_value) + '\n')
