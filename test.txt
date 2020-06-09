@@ -1,4 +1,0 @@
-/media/tai/6TB/Projects/InfoMUNIT/Models/ver_workshop/012_MUNIT_origin_cityscapes_64_cyc/tests/test_batch/a2b/a2b/_01	/media/tai/6TB/Projects/InfoMUNIT/Data/CityScapes/cityscapes/val/	FID: 22.350936439481504
-/media/tai/6TB/Projects/InfoMUNIT/Models/ver_workshop/012_MUNIT_origin_cityscapes_64_cyc/tests/test_batch/a2b/a2b/_01	/media/tai/6TB/Projects/InfoMUNIT/Data/CityScapes/cityscapes/val/	FID: 4.211669355712933
-/media/tai/6TB/Projects/InfoMUNIT/Models/ver_workshop/012_MUNIT_origin_cityscapes_64_cyc/tests/test_batch/a2b/a2b/_01	/media/tai/6TB/Projects/InfoMUNIT/Data/CityScapes/cityscapes/val/	FID: 1.090080477461762
-/media/tai/6TB/Projects/InfoMUNIT/Data/edges2handbags/testA	/media/tai/6TB/Projects/InfoMUNIT/Data/edges2handbags/testA	FID: -3.7234403038155506e-05
