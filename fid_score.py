@@ -40,6 +40,7 @@ import numpy as np
 import torch
 from scipy import linalg
 from torch.nn.functional import adaptive_avg_pool2d
+import cv2
 
 from PIL import Image
 
@@ -52,9 +53,9 @@ except ImportError:
 from inception import InceptionV3
 
 parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
-parser.add_argument('path', type=str, nargs=2,
-                    help=('Path to the generated images or '
-                          'to .npz statistic files'))
+# parser.add_argument('path', type=str, nargs=2,
+#                     help=('Path to the generated images or '
+#                           'to .npz statistic files'))
 parser.add_argument('--batch-size', type=int, default=50, help='Batch size to use')
 parser.add_argument('--dims', type=int, default=2048, choices=list(InceptionV3.BLOCK_INDEX_BY_DIM), help=('Dimensionality of Inception features to use. ' 'By default, uses pool3 features'))
 parser.add_argument('-c', '--gpu', default='', type=str, help='GPU to use (leave blank for CPU only)')
@@ -64,7 +65,16 @@ def imread(filename):
     """
     Loads an image file into a (height, width, 3) uint8 ndarray.
     """
-    return np.asarray(Image.open(filename).resize((64, 64)), dtype=np.uint8)[..., :3]
+    image = cv2.imread(filename)
+    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+    image = cv2.resize(image, (64, 64))
+
+    # image_loaded = Image.open(filename)
+    # image_resized = image_loaded.resize((64, 64))
+    # image_np = np.asarray(image_resized, dtype=np.uint8)
+
+    # return np.asarray(Image.open(filename).resize((64, 64)), dtype=np.uint8)[..., :3]
+    return image
 
 
 def get_activations(files, model, batch_size=50, dims=2048,
@@ -104,8 +114,7 @@ def get_activations(files, model, batch_size=50, dims=2048,
         start = i
         end = i + batch_size
 
-        images = np.array([imread(str(f)).astype(np.float32)
-                           for f in files[start:end]])
+        images = np.array([imread(str(f)).astype(np.float32) for f in files[start:end]])
 
         # Reshape to (n_images, 3, height, width)
         images = images.transpose((0, 3, 1, 2))
@@ -249,6 +258,7 @@ def calculate_fid_given_paths(paths, batch_size, cuda, dims):
 
 if __name__ == '__main__':
     args = parser.parse_args()
+
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
     fid_value = calculate_fid_given_paths(args.path,
